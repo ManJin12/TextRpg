@@ -38,9 +38,9 @@ namespace TextRpg
 
             public void RemoveInventory(int i)
             {
-                Inventory[i] = null;
+                Inventory[i] = null; // 인벤토리의 아이템 삭제
 
-                Item[] newInventory = new Item[Inventory.Length - 1];
+                Item[] newInventory = new Item[Inventory.Length - 1];  // 기존 인벤토리보다 크기가 1 작은 배열 생성
 
                 int newIndex = 0;
 
@@ -48,10 +48,11 @@ namespace TextRpg
                 {
                     if (Inventory[j] != null)
                     {
+                        // 기존 인벤토리의 아이템이 있다면 새로운 인벤토리의 해당 아이템 추가한 후 newIndex 값 1씩 증가
                         newInventory[newIndex++] = Inventory[j];
                     }
                 }
-                Inventory = newInventory;
+                Inventory = newInventory; // 새로운 인벤토리의 있는 아이템의 정보를 인벤토리로 가져온다.
             }
             public void EquipItem(Item item) // 아이템 장착에 따른 능력치 변화 메서드
             {
@@ -582,8 +583,10 @@ namespace TextRpg
 
                                         if (randomValue > 4)
                                         {
+                                            // 방어력에 따른 체력 감소 랜덤 값 설정
                                             Random defenRand = new Random();
                                             int randomValueRand = defenRand.Next(20 + (5 - (int)c.defense), 35 + (5 - (int)c.defense));
+                                            // 공격력에 따른 추가 골드 획득 랜덤 값 설정
                                             Random attackRand = new Random();
                                             int randomValueAttack = attackRand.Next(((int)c.attackPower), ((int)c.attackPower * 2));
                                             Console.WriteLine("던전 클리어 성공");
@@ -591,7 +594,8 @@ namespace TextRpg
                                             Console.WriteLine("쉬운 던전을 클리어 하였습니다.");
                                             Console.WriteLine(" ");
                                             Console.WriteLine("[탐험 결과]");
-                                            Console.WriteLine($"[체력] {c.health} -> {c.health -= randomValueRand}");
+                                            Console.WriteLine($"[체력] {c.health} -> {c.health -= randomValueRand}"); // 체력을 랜덤 값으로 빼준다.
+                                            // 골드를 % 만큼 추가하기 위한 연산
                                             Console.WriteLine($"[Gold] {c.gold} G -> {c.gold += 1000.0f + (1000.0f * (randomValueAttack * 0.01f))}");
                                             Console.WriteLine(" ");
                                             c.LevelUp();
@@ -668,7 +672,6 @@ namespace TextRpg
                                     Console.WriteLine("체력이 없습니다. 휴식을 하고 오세요");
                                     break;
                                 }
-                                
                             }
                             else if(selectedInput == 2)
                             {
